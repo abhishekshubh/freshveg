@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshVeg - About Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+  
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #009B77;
+            --secondary-color: #FFCC00;
+            --light-background: #F6F6F6;
+            --white: #ffffff;
+            --dark-text: #333333;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--light-background);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+        .container {
+           
+            
+           display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+       }
+
+       .container_content {
+           max-width: 1200px;
+           margin: 0 auto;
+           padding: 40px 20px;
+       }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .about-content img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            text-align: justify;
+        }
+
+        .mission {
+            margin-top: 30px;
+        }
+
+        .mission h2 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .mission p {
+            font-size: 18px;
+        }
+
+        .team-section {
+            margin-top: 40px;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .team-members {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .team-member {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 280px;
+        }
+
+        .team-member img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .team-member h3 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .team-member p {
+            font-size: 16px;
+            color: var(--dark-text);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div id="header"></div>
+        </header>
+        <main>
+            <div class="container_content">
+                <h1>About FreshVeg</h1>
+    
+                <div class="about-content">
+                    <img src="/farm.jpg" alt="About FreshVeg">
+                    <p>
+                        At FreshVeg, we are committed to bringing the freshest and highest quality vegetables directly to your doorstep. We work with local farmers to ensure that our customers receive fresh produce while supporting sustainable farming practices. Our platform allows you to conveniently shop for a wide variety of vegetables, ensuring that you and your family always have access to healthy and nutritious food.
+                    </p>
+                </div>
+        
+                <div class="mission">
+                    <h2>Our Mission</h2>
+                    <p>
+                        Our mission is to provide fresh, high-quality, and affordable vegetables to every household. We believe in supporting local farmers and promoting healthy eating habits. FreshVeg is dedicated to reducing the carbon footprint associated with food transportation by sourcing products locally.
+                    </p>
+                </div>
+        
+                <div class="team-section">
+                    <h2>Meet Our Team</h2>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <img src="/brocali.jpg" alt="Team Member 1">
+                            <h3>Abhishek</h3>
+                            <p>Founder & CEO</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="/carrot.jpeg" alt="Team Member 2">
+                            <h3>Priya</h3>
+                            <p>Head of Operations</p>
+                        </div>
+                        <div class="team-member">
+                            <img src="/cauliflower.jpg" alt="Team Member 3">
+                            <h3>Rahul</h3>
+                            <p>Chief Marketing Officer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+       <footer>
+        <div id="footer"></div>
+       </footer>
+       
+    </div>
+    <script src="/header.js"></script>
+    <script src="/footer.js"></script>
+
+</body>
+</html>

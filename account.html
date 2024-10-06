@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshVeg - Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+        /* Basic styles for account page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F6F6F6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .account-container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-container h2 {
+            color: #009B77;
+        }
+
+        .account-details {
+            margin: 20px 0;
+        }
+
+        .logout-btn {
+            background-color: #009B77;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #FFCC00;
+            color: #333;
+        }
+
+        .login-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .login-info button {
+            background-color: #009B77;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-info button:hover {
+            background-color: #FFCC00;
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="account-container">
+        <h2>Account Page</h2>
+
+        <!-- This section will display user's email and name -->
+        <div class="account-details" id="accountDetails">
+            <p>Email: <span id="userEmail">N/A</span></p>
+            <p>Name: <span id="userName">N/A</span></p>
+        </div>
+
+        <!-- Logout button -->
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- Navigation for Sign In/Sign Up (Will be hidden if the user is logged in) -->
+    <div class="login-info" id="loginButtons">
+        <button onclick="window.location.href='sign_in.html'">Sign In</button>
+        <button onclick="window.location.href='sign_up.html'">Sign Up</button>
+    </div>
+
+    <script>
+        // Function to handle loading user info
+        document.addEventListener('DOMContentLoaded', () => {
+            const accountDetails = document.getElementById('accountDetails');
+            const userEmail = document.getElementById('userEmail');
+            const userName = document.getElementById('userName');
+            const loginButtons = document.getElementById('loginButtons');
+            const loggedInEmail = localStorage.getItem('loggedInEmail');
+            const loggedInName = localStorage.getItem('loggedInName'); // Assume name is also stored during sign-in
+
+            if (loggedInEmail && loggedInName) {
+                // Display user's email and name if logged in
+                userEmail.textContent = loggedInEmail;
+                userName.textContent = loggedInName;
+
+                // Hide the Sign In/Sign Up buttons if the user is logged in
+                loginButtons.classList.add('hidden');
+            } else {
+                // If not logged in, redirect to sign-in page
+                alert('You are not logged in! Redirecting to Sign In.');
+                window.location.href = 'sign_in.html';
+            }
+        });
+
+        // Logout function
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            // Clear the user's session from localStorage
+            localStorage.removeItem('loggedInEmail');
+            localStorage.removeItem('loggedInName'); // Assume name is also stored
+
+            // Redirect to the logout page
+            window.location.href = 'log_out.html';
+        });
+    </script>
+
+</body>
+</html>

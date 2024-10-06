@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item - FreshVeg</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+        /* Reset some default styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Basic body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Container to hold the form */
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container_content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header styling */
+        .heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .heading h1 {
+            font-size: 24px;
+            color: #4CAF50; /* FreshVeg primary color */
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        /* Focus state for inputs */
+        input:focus,
+        textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Textarea styling */
+        textarea {
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* For customizing the file input button (optional) */
+        input[type="file"]::-webkit-file-upload-button {
+            background-color: #4CAF50; /* FreshVeg primary color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: #45a049; /* Darker shade for hover effect */
+        }
+
+        /* Button styling */
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50; /* FreshVeg primary color */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker shade for hover effect */
+        }
+
+        /* Response message styling */
+        .response-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none; /* Hidden by default */
+        }
+
+        /* Success message */
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* Error message */
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+       
+
+            .heading h1 {
+                font-size: 20px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            input[type="url"],
+            textarea,
+            button {
+                font-size: 14px;
+            }
+        }
+
+
+        /* Specific styling for category dropdown */
+#item-category {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 1rem;
+    color: #555;
+    appearance: none; /* Removes default dropdown arrow */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0LjUgOCI+PHBhdGggZmlsbD0iIzY2NiIgZD0iTTAgMy41NTlsMi41IDIuNWwyLjUtMi41VjBoLTQuNXYzLjU1OXoiLz48L3N2Zz4=');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+  /* Additional mobile styles */
+  @media (min-width: 320px) and (max-width: 480px) {
+
+    .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .container_content {
+            margin: 20px;
+            padding: 15px;
+        }
+
+        .heading h1 {
+            font-size: 18px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        textarea,
+        button {
+            font-size: 12px;
+            padding: 8px;
+        }
+
+        button {
+            padding: 8px 10px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+        <div class="container_content">
+            <div class="heading">
+                <h1>Add a New Item</h1>
+            </div>
+
+            <main>
+                <form id="add-item-form">
+                    <label for="item-name">Item Name:</label>
+                    <input type="text" id="item-name" required>
+
+                    <label for="item-description">Description:</label>
+                    <textarea id="item-description" required></textarea>
+
+                    <label for="item-price">Price:</label>
+                    <input type="number" id="item-price" required min="0">
+
+                    <label for="item-category">Category:</label>
+                    <select id="item-category" required>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="fruits">Fruits</option>
+                    </select>
+
+                    <label for="item-image">Image Upload:</label>
+                    <input type="file" id="item-image" accept="image/*" required>
+
+                    <button type="submit">Add Item</button>
+                </form>
+
+                <!-- Image display section -->
+                <div id="image-display" class="image-display"></div>
+
+                <!-- Response message -->
+                <div id="response-message" class="response-message"></div>
+
+                <!-- Item list section -->
+                <div id="item-list" class="item-list"></div>
+            </main>
+        </div>
+
+        <div id="footer"></div>
+    </div>
+
+<script src="header.js"></script>
+<script src="footer.js"></script>
+
+<script>
+    // Base API URL
+    const API_URL = 'http://localhost:5000/items';
+
+    document.getElementById('add-item-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const itemName = document.getElementById('item-name').value;
+        const itemDescription = document.getElementById('item-description').value;
+        const itemPrice = document.getElementById('item-price').value;
+        const itemCategory = document.getElementById('item-category').value;
+        const itemImageInput = document.getElementById('item-image');
+        const index = itemImageInput.getAttribute('data-index');
+        const file = itemImageInput.files[0];
+
+        if (!file && !index) {
+            showMessage('Please upload an image.', 'error');
+            return;
+        }
+
+        const handleFile = file ? new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (event) => resolve(event.target.result);
+            reader.readAsDataURL(file);
+        }) : Promise.resolve(null);
+
+        handleFile.then(base64Image => {
+            const item = {
+                name: itemName,
+                description: itemDescription,
+                price: parseFloat(itemPrice).toFixed(2),
+                category: itemCategory,
+                image: base64Image || document.querySelector(`#item-${index} img`).src
+            };
+
+            if (index) {
+                // Update existing item (PUT request)
+                fetch(`${API_URL}/${index}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(item),
+                })
+                .then(res => res.json())
+                .then(() => {
+                    showMessage('Item updated successfully!', 'success');
+                    displayItems();
+                    document.getElementById('add-item-form').reset();
+                    itemImageInput.removeAttribute('data-index');
+                });
+            } else {
+                // Add new item (POST request)
+                fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(item),
+                })
+                .then(res => res.json())
+                .then(() => {
+                    showMessage('Item added successfully!', 'success');
+                    displayItems();
+                    document.getElementById('add-item-form').reset();
+                });
+            }
+        });
+    });
+
+    // Fetch items from the API and display them
+    function displayItems() {
+        fetch(API_URL)
+        .then(res => res.json())
+        .then(items => {
+            const itemList = document.getElementById('item-list');
+            itemList.innerHTML = ''; // Clear the list
+
+            items.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.id = `item-${item._id}`;
+                
+                itemDiv.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>${item.description}</p>
+                    <p>Price: ₹${item.price}</p>
+                    <p>Category: ${item.category}</p>
+                    <img src="${item.image}" alt="Item image of ${item.name}" style="width: 100%; border-radius: 4px;">
+                    <button aria-label="Remove item ${item.name}" onclick="removeItem('${item._id}')">Remove Item</button>
+                    <button aria-label="Edit item ${item.name}" onclick="editItem('${item._id}')">Edit Item</button>
+                `;
+
+                itemList.appendChild(itemDiv);
+            });
+        });
+    }
+
+    // Remove item from the API
+    function removeItem(id) {
+        fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+        })
+        .then(() => {
+            showMessage('Item removed successfully!', 'success');
+            displayItems();
+        });
+    }
+
+    // Edit item (fetch item details from API and populate form)
+   // Update item if index exists
+
+   function editItem(id) {
+    fetch(`${API_URL}/${id}`,{
+        method: 'PUT',
+    })
+        .then(res => res.json())
+        .then(item => {
+            document.getElementById('item-name').value = item.name;
+            document.getElementById('item-description').value = item.description;
+            document.getElementById('item-price').value = item.price;
+            document.getElementById('item-category').value = item.category;
+            // Set the data-index attribute to indicate this item is being edited
+            const itemImageInput = document.getElementById('item-image');
+            itemImageInput.setAttribute('data-index', item._id);
+        })
+        .catch(err => {
+            showMessage(`Failed to fetch item details: ${err.message}`, 'error');
+        });
+}
+
+
+    // Function to display messages to the user
+    function showMessage(message, type) {
+        const responseMessage = document.getElementById('response-message');
+        responseMessage.innerText = message;
+        responseMessage.className = `response-message ${type}`;
+        responseMessage.style.display = 'block';
+        setTimeout(() => {
+            responseMessage.style.display = 'none';
+        }, 3000); // Hide message after 3 seconds
+    }
+
+    // Initial display of items on page load
+    displayItems();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshVeg - Place Your Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #009b77;
+        --secondary-color: #ffcc00;
+        --light-background: #f6f6f6;
+        --white: #ffffff;
+        --dark-text: #333333;
+        --input-border-color: #cccccc;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: var(--light-background);
+        color: var(--dark-text);
+        line-height: 1.6;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .container_content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+      }
+
+      .order-form {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .order-form h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .order-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .order-form input,
+      .order-form select {
+        padding: 10px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .order-form input:focus,
+      .order-form select:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      .order-form button {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .order-form button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+      }
+
+      .order-summary {
+        margin-top: 20px;
+        background-color: var(--white);
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .order-summary h3 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .order-summary p {
+        font-size: 18px;
+        text-align: center;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 10px;
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .cart-item img {
+        border-radius: 5px;
+      }
+
+      .cart-item p {
+        margin-left: 15px;
+      }
+
+      .delete-btn {
+        color: red;
+        cursor: pointer;
+        padding: 5px;
+        margin-left: 10px;
+      }
+
+      .progress-bar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 10px 0;
+      }
+
+      .progress-step {
+        width: 25%;
+        text-align: center;
+        position: relative;
+        font-size: 14px;
+      }
+
+      .progress-step::before {
+        content: "";
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+      }
+
+      .progress-step.active::before {
+        background-color: var(--secondary-color);
+      }
+
+      .progress-step::after {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: 50px;
+        width: calc(100% - 20px);
+        height: 3px;
+        background-color: var(--input-border-color);
+        z-index: -1;
+      }
+
+      .progress-step.active::after {
+        background-color: var(--secondary-color);
+      }
+
+      .progress-step:last-child::after {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="header"></div>
+      <div class="container_content">
+        <h1>Place Your Order</h1>
+
+        <!-- Progress Indicator for Orders -->
+        <div class="progress-bar">
+          <div class="progress-step active">Details</div>
+          <div class="progress-step">Payment</div>
+          <div class="progress-step">Confirmation</div>
+        </div>
+
+        <div class="order-form">
+          <h2>Order Details</h2>
+          <form id="order-form" action="#" method="POST">
+            <input type="text" name="name" id="name" placeholder="Your Name" required />
+            <input type="email" name="email" id="email" placeholder="Your Email" required />
+            <input type="text" name="address" id="address" placeholder="Delivery Address" required />
+
+            <select name="payment-method" id="payment-method" required>
+              <option value="">Select Payment Method</option>
+              <option value="card">Credit/Debit Card</option>
+              <option value="cod">Cash on Delivery</option>
+            </select>
+
+            <button type="submit">Place Order</button>
+          </form>
+        </div>
+
+        <div class="order-summary">
+          <h3>Your Order Summary</h3>
+          <p id="order-items"></p>
+          <p id="order-quantity"></p>
+          <p id="order-total"></p>
+        </div>
+      </div>
+
+      <h1>Your Cart Items</h1>
+      <div id="cart-items"></div>
+
+      <div id="footer"></div>
+    </div>
+
+    <script src="/header.js"></script>
+    <script src="/footer.js"></script>
+
+    <script>
+      // Handle form submission
+      document.getElementById("order-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Capture form values
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const address = document.getElementById("address").value;
+        const paymentMethod = document.getElementById("payment-method").value;
+
+        // Confirmation message
+        alert(`Thank you, ${name}! Your order has been placed successfully.`);
+
+        // Reset the form after submission
+        this.reset();
+      });
+
+      // Function to display cart
+      function displayCart() {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        const cartItemsDiv = document.getElementById("cart-items");
+        const orderItems = document.getElementById("order-items");
+        const orderQuantity = document.getElementById("order-quantity");
+        const orderTotal = document.getElementById("order-total");
+
+        let totalQuantity = 0;
+        let totalPrice = 0;
+
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = "<p>Your cart is empty.</p>";
+          orderItems.innerHTML = "No items in the cart.";
+          orderQuantity.innerHTML = "";
+          orderTotal.innerHTML = "Total: ₹0.00";
+          return;
+        }
+
+        cartItemsDiv.innerHTML = "";
+        cart.forEach((item) => {
+          cartItemsDiv.innerHTML += `
+            <div class="cart-item">
+              <img src="${item.image}" alt="${item.name}" width="100">
+              <p><strong>${item.name}</strong></p>
+              <p>Price: ₹${item.price}</p>
+              <p>Quantity: ${item.quantity}</p>
+              <button class="delete-btn" onclick="removeFromCart('${item.name}')">Remove</button>
+            </div>
+          `;
+
+          totalQuantity += item.quantity;
+          totalPrice += item.price * item.quantity;
+        });
+
+        orderItems.innerHTML = `Items: ${cart.map((item) => item.name).join(", ")}`;
+        orderQuantity.innerHTML = `Total Quantity: ${totalQuantity}`;
+        orderTotal.innerHTML = `Total Price: ₹${totalPrice}`;
+      }
+
+      // Remove item from cart
+      function removeFromCart(itemName) {
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        cart = cart.filter((item) => item.name !== itemName);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        displayCart(); // Refresh cart display
+      }
+
+      // Initial display
+      displayCart();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,265 @@
+/* Footer Section */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #009b77; /* Main FreshCo color */
+  --secondary-color: #ffcc00; /* Accent color */
+  --light-background: #f6f6f6; /* Light background for contrast */
+  --white: #ffffff;
+  --dark-text: #333333;
+}
+footer {
+    background: var(--primary-color);
+    color: var(--white);
+    padding: 20px;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer-slogan {
+    width: 100%;
+    border-bottom: solid #f6f6f6 1px;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .footer-items {
+    display: flex;
+    gap: 50px;
+  }
+  
+  .footer-item h4 {
+    position: relative;
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
+  .footer-item h4::after {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: -5px;
+    background: var(--white);
+  }
+  
+  .footer-item p {
+    font-size: 14px;
+  }
+  
+  .social_registration {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .farmer_registration button {
+    background: var(--dark-text);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+  
+  .farmer_registration button:hover {
+    background: var(--secondary-color);
+    transform: scale(1.05);
+  }
+  
+  .footer-social-media {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .footer-social-media ul li {
+    list-style: none;
+  }
+  
+  .footer-social-media a {
+    color: var(--white);
+    font-size: 20px;
+    transition: color 0.3s;
+  }
+  
+  .footer-social-media a:hover {
+    color: var(--secondary-color);
+  }
+  
+  .footer-copyright {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+  @media (min-width: 320px) and (max-width: 480px) {
+    /* General Body Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 15px; /* Slightly larger for readability on small screens */
+      line-height: 1.6; /* Improve text readability */
+       /* Maintain a margin for mobile devices */
+      background-color: #fafafa; /* Light background for a modern look */
+      color: #333; /* Standard color for text readability */
+    }
+  
+   
+  
+  
+  
+    /* Footer */
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-color: #f4f4f4; /* Light gray for footer background */
+      text-align: center;
+    }
+  
+    .footer-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .footer-item h4 {
+      font-size: 15px;
+      margin: 4px 0;
+      color: #222;
+    }
+  
+    .footer-item p {
+      font-size: 14px;
+      color: #666;
+    }
+  
+    .footer-slogan {
+      font-size: 15px;
+      font-style: italic;
+      margin: 10px 0;
+      color: #333;
+    }
+  
+    /* Search Bar */
+    .search-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+  
+    .search-bar input[type="text"] {
+      width: 95%; /* Slightly more width for mobile convenience */
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight shadow for elevation */
+    }
+  
+    .search-bar button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth hover effect */
+    }
+  
+    .search-bar button:hover {
+      background-color: #218838; /* Darken button on hover */
+    }
+  
+    /* Featured Items */
+    .featured-items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+  
+    /* Account Icon */
+    .account-icon {
+      font-size: 20px;
+      color: #333;
+      margin-top: 10px;
+    }
+  
+    .account-icon i {
+      font-size: 24px;
+    }
+  
+    /* Button Box */
+    .button-box {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+  
+    .button-box button {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  
+    .button-box button:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+    }
+  
+    .newsletter {
+          background-color: var(--primary-color);
+          color: var(--white);
+          text-align: center;
+          padding: 40px;
+          overflow: hidden;
+        }
+  
+        .newsletter h2 {
+          margin-bottom: 20px;
+        }
+  
+        .newsletter input[type="email"] {
+          padding: 10px;
+          font-size: 16px;
+          width: 200px;
+          border: none;
+          border-radius: 5px;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+  }
+  

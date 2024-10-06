@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshVeg - Logout</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+        /* Basic styles for logout message */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #F6F6F6;
+            color: #333;
+        }
+
+        .logout-message {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logout-message h2 {
+            color: #009B77;
+        }
+
+        .logout-message p {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logout-message">
+        <h2>Logging Out...</h2>
+        <p>You will be redirected shortly.</p>
+    </div>
+
+    <script>
+        // Handle logout by clearing localStorage and redirecting the user
+        document.addEventListener('DOMContentLoaded', () => {
+            // Clear the user's session from localStorage
+            localStorage.removeItem('loggedInEmail');
+
+                        // Set the login status to false
+            localStorage.setItem('isLoggedIn', 'false');
+
+            // Show an alert (optional)
+            alert('You have been logged out successfully!');
+
+            // Redirect the user to the sign-in page after a delay (e.g., 2 seconds)
+            setTimeout(() => {
+                window.location.href = 'sign_in.html'; // Change this to your actual sign-in page URL
+            }, 2000);
+        });
+    </script>
+
+</body>
+</html>

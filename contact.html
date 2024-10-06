@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshVeg - Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+      /* Existing CSS remains the same */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #009b77;
+        --secondary-color: #ffcc00;
+        --light-background: #f6f6f6;
+        --white: #ffffff;
+        --dark-text: #333333;
+        --input-border-color: #cccccc;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: var(--light-background);
+        color: var(--dark-text);
+        line-height: 1.6;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .container_content {
+        flex-grow: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+      }
+
+      .contact-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .contact-info {
+        text-align: center;
+      }
+
+      .contact-info p {
+        font-size: 18px;
+      }
+
+      .contact-info i {
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
+
+      .contact-form {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .contact-form h2 {
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .contact-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        padding: 10px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+      }
+
+      .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .contact-form button {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .contact-form button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+      }
+
+      /* Loading spinner */
+      .loading-spinner {
+        display: none;
+        border: 4px solid var(--input-border-color);
+        border-top: 4px solid var(--primary-color);
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .sent-messages {
+        margin-top: 30px;
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .sent-messages h3 {
+        color: var(--primary-color);
+        text-align: center;
+      }
+
+      .sent-messages p {
+        margin: 5px 0;
+        padding: 5px;
+        border-bottom: 1px solid var(--input-border-color);
+      }
+
+      /* Google Maps */
+      .map-container {
+        width: 100%;
+        height: 300px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="header"></div>
+      <div class="container_content">
+        <h1>Contact Us</h1>
+
+        <div class="contact-content">
+          <div class="contact-info-section" aria-label="Contact Information">
+            <div class="contact-info-item">
+              <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+              <p aria-label="Address">123 FreshVeg Lane, Green City, India</p>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-phone-alt" aria-hidden="true"></i>
+              <p aria-label="Phone Number">+91 12345 67890</p>
+            </div>
+            <div class="contact-info-item">
+              <i class="fas fa-envelope" aria-hidden="true"></i>
+              <p aria-label="Email Address">support@freshveg.com</p>
+            </div>
+          </div>
+
+          <!-- Google Maps Embed -->
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3660.0631227513186!2d85.13098757510572!3d23.45818747887076!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f4db9987a8e7d1%3A0x65be646481a93a8c!2sBargari%20panchayat%20bhawan!5e0!3m2!1sen!2sin!4v1727646821060!5m2!1sen!2sin"
+              width="400"
+              height="200"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <div class="contact-form">
+            <h2>Get in Touch</h2>
+            <form id="contact-form">
+              <label for="name">Your Name</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                required
+                aria-label="Your Name"
+                id="name"
+              />
+              <label for="email">Your Email</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                required
+                aria-label="Your Email"
+                id="email"
+              />
+              <label for="phone">Your Phone (Optional)</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Your Phone"
+                aria-label="Your Phone"
+                id="phone"
+              />
+              <label for="message">Your Message</label>
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                required
+                aria-label="Your Message"
+                id="message"
+              ></textarea>
+              <button type="submit">Send Message</button>
+              <div class="loading-spinner" id="loading-spinner"></div>
+            </form>
+          </div>
+
+          <!-- Sent messages section -->
+          <div id="sent-messages" class="sent-messages">
+            <h3>Sent Messages:</h3>
+            <div id="messages-list"></div>
+          </div>
+        </div>
+      </div>
+      <div id="footer"></div>
+    </div>
+
+    <div id="responseModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="response-message"></p>
+      </div>
+    </div>
+
+    <script src="/header.js"></script>
+    <script src="/footer.js"></script>
+    <script>
+      // Form submission event listener
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form from submitting normally
+
+          // Clear previous messages
+          document.getElementById("response-message").textContent = "";
+
+          // Validate email format
+          const emailField = document.getElementById("email");
+          const email = emailField.value;
+          const name = document.getElementById("name").value;
+          const message = document.getElementById("message").value;
+          const phone = document.getElementById("phone").value; // Optional phone field
+
+          const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+          if (!email.match(emailPattern)) {
+            showModal("Please enter a valid email address.");
+            return;
+          }
+
+          // Show loading spinner
+          const spinner = document.getElementById("loading-spinner");
+          spinner.style.display = "block";
+
+          // Gather form data
+          const formData = {
+            name,
+            email,
+            phone, // Include phone in the data sent
+            message,
+          };
+
+          // Send form data using fetch
+          fetch("http://localhost:5000/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              spinner.style.display = "none"; // Hide loading spinner
+              if (data.success) {
+                showModal("Your message has been sent successfully!");
+                document.getElementById("contact-form").reset(); // Clear the form
+                displaySentMessage(formData); // Display the sent message
+              } else {
+                showModal(
+                  data.message || "An error occurred. Please try again later."
+                );
+              }
+            })
+            .catch((error) => {
+              spinner.style.display = "none"; // Hide loading spinner
+              showModal(
+                "There was a problem with your request. Please try again later."
+              );
+            });
+        });
+
+      // Function to display the sent message
+      function displaySentMessage(formData) {
+        const messagesList = document.getElementById("messages-list");
+        const messageDiv = document.createElement("p");
+        messageDiv.textContent = `Name: ${formData.name}, Email: ${formData.email}, Message: ${formData.message}`;
+        messagesList.prepend(messageDiv); // Add to the top of the list
+      }
+
+      // Function to show modal
+      function showModal(message) {
+        document.getElementById("response-message").textContent = message;
+        document.getElementById("responseModal").style.display = "block";
+      }
+
+      // Close modal event
+      document.querySelector(".close").onclick = function () {
+        document.getElementById("responseModal").style.display = "none";
+      };
+
+      // Close modal when clicking outside of it
+      window.onclick = function (event) {
+        if (event.target == document.getElementById("responseModal")) {
+          document.getElementById("responseModal").style.display = "none";
+        }
+      };
+    </script>
+  </body>
+</html>

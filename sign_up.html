@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshVeg - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --primary-color: #009B77;
+        --secondary-color: #FFCC00;
+        --light-background: #F6F6F6;
+        --white: #ffffff;
+        --dark-text: #333333;
+        --input-border-color: #CCCCCC;
+    }
+
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: var(--light-background);
+        color: var(--dark-text);
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .container_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px;
+        min-height: 100vh;
+    }
+
+    .sign-up-box {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .sign-up-box h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+    }
+
+    .sign-up-box form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sign-up-box input {
+        padding: 10px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .sign-up-box input:focus {
+        border-color: var(--primary-color);
+        outline: none;
+    }
+
+    .sign-up-box button {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .sign-up-box button:hover {
+        background-color: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .sign-up-box .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .sign-up-box .login-link a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .sign-up-box .login-link a:hover {
+        color: var(--secondary-color);
+    }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <div id="header"></div>
+       <div class="container_content">
+        <div class="sign-up-box">
+            <h2>Sign Up</h2>
+            <form id="signupForm" action="http://localhost:5000/signup" method="POST">
+                <input type="text" id="name" name="name" placeholder="Enter Your Name" required>
+                <input type="email" id="email" name="email" placeholder="Enter Your Email" required>
+                <input type="password" id="password" name="password" placeholder="Enter Your Password" required>
+                <input type="password" id="confirmPassword" name="confirm-password" placeholder="Confirm Your Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="login-link">
+                <p>Already have an account? <a href="sign_in.html">Log In</a></p>
+            </div>
+        </div>
+       </div>
+       <div id="footer"></div>
+    </div>
+    <script src="/header.js"></script>
+    <script src="/footer.js"></script>
+
+    <script>
+         document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailPattern.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+}
+
+
+
+
+            // Debugging alerts
+            alert('Checking form values');
+            alert('Name: ' + name);
+            alert('Email: ' + email);
+            alert('Password: ' + password);
+            alert('Confirm Password: ' + confirmPassword);
+
+            
+
+            // Make sure all fields are filled
+            if (!name || !email || !password || !confirmPassword) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            // Create a request object to send form data to the server
+            const formData = { name, email, password, confirmPassword };
+
+            // Send form data to the server via POST request using Fetch API
+            fetch('http://localhost:5000/signup', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, password, confirmPassword }),
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        alert(data.message); // Handle success
+        window.location.href = 'sign_in.html'; // Redirect to the sign-in page
+    } else {
+        alert(data.message); // Handle error
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred during signup.'); // Generic error
+});
+        });
+    </script>
+    
+</body>
+</html>

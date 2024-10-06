@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshVeg</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="header.css">
+    </noscript>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="heading-container">
+            <div class="slogan-box">
+                <h2>Fresh and Affordable - Only at FreshVeg</h2>
+            </div>
+            <nav class="navigation-box">
+                <div class="logo-box">
+                    <a href="/index.html"><strong>FreshVeg</strong></a>
+                </div>
+                <div class="hamburger" aria-label="Menu"><i class="fa-solid fa-bars"></i></div>
+                <div class="cross" aria-label="Close"><i class="fa-solid fa-xmark"></i></div>
+                <ul class="nav-bar">
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="order.html">Order</a></li>
+                    <li><a href="farmer_add_item.html">Add Item</a></li>
+                </ul>
+                <div class="button-box">
+                    <a href="/sign_up.html"><button id="sign-up">Sign Up</button></a>
+                    <a href="/sign_in.html"><button id="sign-in">Sign In</button></a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <script defer>
+        const hamburger = document.querySelector('.hamburger');
+        const cross = document.querySelector('.cross');
+        const navigation = document.querySelector('.nav-bar');
+
+        // Initially hide the cross icon
+        cross.style.display = 'none';
+
+        // Show the navigation when the hamburger is clicked
+        hamburger.addEventListener('click', () => {
+            navigation.style.display = 'flex'; // Show the menu
+            hamburger.style.display = 'none'; // Hide hamburger
+            cross.style.display = 'inline-block'; // Show cross
+        });
+
+        // Hide the navigation when the cross is clicked
+        cross.addEventListener('click', () => {
+            navigation.style.display = 'none'; // Hide the menu
+            hamburger.style.display = 'inline-block'; // Show hamburger
+            cross.style.display = 'none'; // Hide cross
+        });
+
+    </script>
+</body>
+
+</html>

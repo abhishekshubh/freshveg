@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FreshVeg - Farmer Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" type="image/x-icon">
+    <noscript><link rel="stylesheet" href="header.css"></noscript>
+    <link rel="preload" href="header.css" as="style" onload="this.rel='stylesheet'">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+       
+        background-color: #f9f9f9;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        gap: 20px;
+      }
+
+      .container_content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #218838;
+      }
+
+      .item {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      .image-display img {
+        width: 100%;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="header"></div>
+      <div class="container_content">
+        <div class="heading">
+          <h1>FreshVeg Farmer Portal</h1>
+        </div>
+
+        <main>
+          <section id="account-section">
+            <h2>Create Your Account</h2>
+            <form id="registration-form">
+              <label for="farmer-name">Name:</label>
+              <input type="text" id="farmer-name" required />
+
+              <label for="farmer-email">Email:</label>
+              <input type="email" id="farmer-email" required />
+
+              <label for="farmer-password">Password:</label>
+              <input type="password" id="farmer-password" required />
+
+              <button type="submit">Register</button>
+            </form>
+
+            <h2>Login</h2>
+            <form id="login-form">
+              <label for="login-email">Email:</label>
+              <input type="email" id="login-email" required />
+
+              <label for="login-password">Password:</label>
+              <input type="password" id="login-password" required />
+
+              <button type="submit">Login</button>
+            </form>
+          </section>
+
+          <section id="payment-section" style="display: none">
+            <h2>Your Payment Information</h2>
+            <form id="payment-form">
+              <label for="bank-details">Bank Account Details:</label>
+              <input type="text" id="bank-details" required />
+
+              <button type="submit">Save Payment Info</button>
+            </form>
+          </section>
+
+          <form id="add-item-form" style="display: none">
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" required />
+
+            <label for="item-description">Description:</label>
+            <textarea id="item-description" required></textarea>
+
+            <label for="item-price">Price:</label>
+            <input type="number" id="item-price" required />
+
+            <label for="item-image">Image Upload:</label>
+            <input type="file" id="item-image" accept="image/*" required />
+
+            <button type="submit">Add Item</button>
+          </form>
+
+          <button id="go-to-main-page" style="display: none">
+            Go to Main Page
+          </button>
+
+          <div id="image-display" class="image-display"></div>
+          <div id="item-list" class="item-list"></div>
+        </main>
+      </div>
+      <div id="footer"></div>
+    </div>
+
+    <script>
+      // Registration functionality
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("farmer-name").value;
+          const email = document.getElementById("farmer-email").value;
+          const password = document.getElementById("farmer-password").value;
+
+          const farmers = JSON.parse(localStorage.getItem("farmers")) || [];
+          const newFarmer = { name, email, password };
+          farmers.push(newFarmer);
+          localStorage.setItem("farmers", JSON.stringify(farmers));
+
+          alert("Registration successful! You can now log in.");
+          document.getElementById("registration-form").reset();
+        });
+
+      // Login functionality
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("login-email").value;
+          const password = document.getElementById("login-password").value;
+
+          const farmers = JSON.parse(localStorage.getItem("farmers")) || [];
+          const farmer = farmers.find(
+            (farmer) => farmer.email === email && farmer.password === password
+          );
+
+          if (farmer) {
+            alert(`Welcome back, ${farmer.name}!`);
+            document.getElementById("payment-section").style.display = "block"; // Show payment info section
+            document.getElementById("add-item-form").style.display = "block"; // Show add item form
+            document.getElementById("go-to-main-page").style.display = "block"; // Show the go to main page button
+            document.getElementById("account-section").style.display = "none"; // Hide account section
+            document.getElementById("login-form").reset();
+          } else {
+            alert("Invalid email or password. Please try again.");
+          }
+        });
+
+      // Save payment information
+      document
+        .getElementById("payment-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const bankDetails = document.getElementById("bank-details").value;
+          const farmerPaymentInfo = { bankDetails };
+
+          const payments = JSON.parse(localStorage.getItem("payments")) || [];
+          payments.push(farmerPaymentInfo);
+          localStorage.setItem("payments", JSON.stringify(payments));
+
+          alert("Payment information saved successfully!");
+          document.getElementById("payment-form").reset();
+        });
+
+      // Redirect to the main page
+      document
+        .getElementById("go-to-main-page")
+        .addEventListener("click", function () {
+          window.location.href = "index.html"; // Change 'main_page.html' to your actual main page file name
+        });
+    </script>
+
+    <script src="/header.js"></script>
+    <script src="/footer.js"></script>
+
+  </body>
+</html>
